@@ -1,0 +1,7 @@
+Requirements
+- Render the following Blender object onto the browser screen using native WebGL or any library of your choosing (such as ThreeJS)
+https://www.dropbox.com/s/gbtabwnkbw8xkgf/Model%20for%20Render.blend?dl=0
+- The user should be able to see the object, rotate it and zoom it on top of a plane
+- Bonus points for having a set of toggles that lets the user change the colors, lighting conditions and sizes
+- Once completed, please share with me the GitHub repo link as well as a live demo link
+- We will judge both the quality of the render and the quality of your code

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>My first Three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.min.js"></script>
+        <script src='mrdoob-three.js-1f968fe/examples/js/libs/dat.gui.min.js'></script>
+		<script src="mrdoob-three.js-1f968fe/examples/js/controls/OrbitControls.js"></script>
+        <script src="mrdoob-three.js-1f968fe/examples/js/loaders/OBJLoader.js"></script>
+		<script>
+			
+            // set up the window + scene
+            var gui = new dat.GUI();
+            var scene = new THREE.Scene();            
+            var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+            
+                        
+            // set up loading manager
+            var manager = new THREE.LoadingManager();            
+            var onProgress = function ( xhr ) {
+                if ( xhr.lengthComputable ) {
+                    var percentComplete = xhr.loaded / xhr.total * 100;
+                    console.log( Math.round(percentComplete, 2) + '% downloaded' );
+                }
+            };
+            var onError = function ( xhr ) {
+            };
+            
+            
+            // load the geometry
+            var loader = new THREE.OBJLoader( manager );
+            loader.load( 'blender/shade.obj', function ( object ) {                                                
+                                
+                object.traverse( function ( child ) {
+
+                    if ( child instanceof THREE.Mesh ) {                                                   
+                        
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0x3477f2,
+                            emissive: 0x072534,
+                            side: THREE.DoubleSide,
+                            shading: THREE.FlatShading
+                        })
+
+                    }
+
+                } );
+                
+                object.position.y -= .5;
+                
+                scene.add(object);
+
+            }, onProgress, onError );
+            
+            loader.load( 'blender/bracket.obj', function ( object ) {                
+                
+                object.traverse( function ( child ) {
+
+                    if ( child instanceof THREE.Mesh ) {                                                   
+                        
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0x848280,
+                            emissive: 0x072534,
+                            side: THREE.DoubleSide,
+                            shading: THREE.FlatShading
+                        })
+
+                    }
+
+                } );
+                
+                object.position.y -= .5;
+                scene.add(object);
+
+            }, onProgress, onError );
+            
+            loader.load( 'blender/ball.obj', function ( object ) {                
+                
+                object.traverse( function ( child ) {
+
+                    if ( child instanceof THREE.Mesh ) {                                                   
+                        
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0x21ce53,
+                            emissive: 0x072534,
+                            side: THREE.DoubleSide,
+                            shading: THREE.FlatShading
+                        })
+
+                    }
+
+                } );
+                
+                object.position.y -= .5;
+                scene.add(object);                                
+
+            }, onProgress, onError );
+            
+            loader.load( 'blender/small_ball.obj', function ( object ) {                
+                
+                object.traverse( function ( child ) {
+
+                    if ( child instanceof THREE.Mesh ) {                                                   
+                        
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0xffffff,
+                            emissive: 0x072534,
+                            side: THREE.DoubleSide,
+                            shading: THREE.FlatShading
+                        })
+
+                    }
+
+                } );
+                
+                object.position.y -= .5;
+                scene.add(object);
+
+            }, onProgress, onError );
+            
+            loader.load( 'blender/body.obj', function ( object ) {                
+                
+                object.traverse( function ( child ) {
+
+                    if ( child instanceof THREE.Mesh ) {                                                   
+                        
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0xce7221,
+                            emissive: 0x072534,
+                            side: THREE.DoubleSide,
+                            shading: THREE.FlatShading
+                        })
+
+                    }
+
+                } );
+                
+                object.position.y -= .5;
+                scene.add(object);
+
+            }, onProgress, onError );
+            
+            loader.load( 'blender/knob.obj', function ( object ) {                
+                
+                object.traverse( function ( child ) {
+
+                    if ( child instanceof THREE.Mesh ) {                                                   
+                        
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0x848280,
+                            emissive: 0x072534,
+                            side: THREE.DoubleSide,
+                            shading: THREE.FlatShading
+                        })
+
+                    }
+
+                } );
+                
+                object.position.y -= .5;
+                scene.add(object);
+
+            }, onProgress, onError );
+            
+            loader.load( 'blender/foot.obj', function ( object ) {                
+                
+                object.traverse( function ( child ) {
+
+                    if ( child instanceof THREE.Mesh ) {                                                   
+                        
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0x848280,
+                            emissive: 0x072534,
+                            side: THREE.DoubleSide,
+                            shading: THREE.FlatShading
+                        })
+
+                    }
+
+                } );
+                
+                object.position.y -= .5;
+                scene.add(object);
+
+            }, onProgress, onError );                       
+            
+            
+            // set up the renderer (WebGL)
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+            
+            // gives control over rotation and zoom
+            var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+			orbit.enableZoom = true;
+            orbit.zoomSpeed = 0.25;
+
+            // light the scence
+            var light = new THREE.AmbientLight( 0x404040 );
+            scene.add( light );
+            
+            var lights = [];
+			lights[0] = new THREE.PointLight( 0xffffff, 1, 0 );
+			lights[1] = new THREE.PointLight( 0xffffff, 1, 0 );
+			lights[2] = new THREE.PointLight( 0xffffff, 1, 0 );
+			
+			lights[0].position.set( 0, 200, 0 );
+			lights[1].position.set( 100, 200, 100 );
+			lights[2].position.set( -100, -200, -100 );
+
+			scene.add( lights[0] );
+			scene.add( lights[1] );
+			scene.add( lights[2] );
+            
+				
+            
+            
+            // set the camera position
+            camera.position.z = 5;
+            
+            
+            
+            
+            
+            function render() {
+                requestAnimationFrame( render );
+                renderer.render( scene, camera );
+                
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+            }
+            render();
+            
+		</script>
+	</body>
+</html>
